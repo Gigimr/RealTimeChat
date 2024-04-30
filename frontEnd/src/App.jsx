@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
-
+import Chat from './components/Chat';
 
 const socket = io.connect('http://localhost:3001');
 
@@ -29,6 +29,7 @@ function App() {
        onChange={(e) => {setRoom(e.target.value)}} 
       />
       <button onClick={joinRoom}>Unirme</button>
+      <Chat socket={socket} userName={userName} room={room} />
     </div>
     </>
   )
