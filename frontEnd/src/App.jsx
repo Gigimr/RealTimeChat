@@ -10,16 +10,19 @@ const socket = io.connect('http://localhost:3001');
 function App() {
   const [userName, setUserName] = useState('')
   const [room, setRoom] = useState('')
+  const [showChat, setShowChat] = useState(false)
 
   const joinRoom = () => {
     if (userName !== '' && room !== '') {
       socket.emit('join_room', room);
+      setShowChat(true);
     }
   }
 
 
   return (
     <Container>
+      {!showChat ?
       <Card fluid>
         <CardContent header='Join the chat'/>
         <CardContent>
@@ -42,7 +45,9 @@ function App() {
   </Form>
         </CardContent>
       </Card>
+      :
       <Chat socket={socket} userName={userName} room={room} />
+}
     </Container>
   )
 }

@@ -27,7 +27,7 @@ const Chat = ({ socket, userName, room}) => {
   return (
   <Container>
     <Card fluid>
-     <CardContent header='Real time chat' />
+     <CardContent header={`Real time chat | Room: ${room}` }/>
          <CardContent>Messages</CardContent>
          <CardContent extra>
         <Form>
