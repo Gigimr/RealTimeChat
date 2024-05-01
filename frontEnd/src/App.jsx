@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 import Chat from './components/Chat';
+import { Container, Card, CardContent, Form, FormField, Button } from 'semantic-ui-react'
+
 
 const socket = io.connect('http://localhost:3001');
 
@@ -17,21 +19,31 @@ function App() {
 
 
   return (
-    <>
-    <div className='chat'>
-      <h3 >Unirme al chat</h3>
+    <Container>
+      <Card fluid>
+        <CardContent header='Join the chat'/>
+        <CardContent>
+        <Form>
+    <FormField>
+      <label>Username</label>
       <input type='text'
        placeholder='Nombre de usuario'
        onChange={(e) => {setUserName(e.target.value)}}
       />
+    </FormField>
+    <FormField>
+      <label>Room</label>
       <input type='text'
        placeholder='ID sala'
        onChange={(e) => {setRoom(e.target.value)}} 
       />
-      <button onClick={joinRoom}>Unirme</button>
+    </FormField>
+    <Button onClick={joinRoom}>Join</Button>
+  </Form>
+        </CardContent>
+      </Card>
       <Chat socket={socket} userName={userName} room={room} />
-    </div>
-    </>
+    </Container>
   )
 }
 
