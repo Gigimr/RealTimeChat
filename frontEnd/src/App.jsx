@@ -5,7 +5,7 @@ import Chat from './components/Chat';
 import { Container, Card, CardContent, Form, FormField, Button } from 'semantic-ui-react'
 
 
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect(import.meta.env.VITE_API_URL);
 
 function App() {
   const [userName, setUserName] = useState('')
