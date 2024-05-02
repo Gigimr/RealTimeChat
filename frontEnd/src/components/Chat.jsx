@@ -79,7 +79,6 @@ const Chat = ({ socket, userName, room}) => {
                 </div>
                 </FormField>
             </Form>
-            <Icon name='user' />4 Friends
      </CardContent>
   </Card>
   </Container>
