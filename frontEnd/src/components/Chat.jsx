@@ -1,5 +1,5 @@
 import  { useEffect, useState } from "react";
-import { Card, CardContent, Container, Divider, Form, FormField, Icon, Input, Message, MessageHeader } from "semantic-ui-react";
+import { Card, CardContent, Container, Divider, Form, FormField, Icon, Message, MessageHeader } from "semantic-ui-react";
 
 const Chat = ({ socket, userName, room}) => {
     const [currentMessage, setCurrentMessage] =useState('');
@@ -44,33 +44,36 @@ const Chat = ({ socket, userName, room}) => {
                         success={userName === item.author}
                         info={userName !== item.author}
                         >
-                            <MessageHeader>{item.author}</MessageHeader>
-                            <p>{item.message}</p>
-                            <i>{item.time}</i>
+                            <MessageHeader>{item.message}</MessageHeader>
+                            <p>Sent by: <strong>{item.author}</strong>, at: <i>{item.time}</i></p>
+                           
                         </Message>
                         <Divider/>
                         </span>
                     )
                 })}
          </CardContent>
-         <CardContent extra>
-        <Form>
-         <FormField>
-          <Input
-            action={{
-                color: 'teal',
-                labelPosition: 'right',
-                icon: 'send',
-                content: 'Send',
-                onClick:sendMessage
-              }}
-             type="text"
-             placeholder="Escribe un mensaje"
-             onChange={(e) => setCurrentMessage(e.target.value)} 
-             />
-         </FormField>
-        </Form>
-        <Icon name='user' />4 Friends
+        <CardContent extra>
+            <Form>
+                <FormField>
+                <div className="ui action input">
+                    <input
+                        type="text"
+                        placeholder="Escribe un mensaje"
+                        onChange={(e) => setCurrentMessage(e.target.value)} 
+                        onKeyUp ={(e)=> {
+                        if(e.key === 'Enter')sendMessage()
+                        }
+                        }
+                    />
+                    <button type='button' onClick={() => sendMessage()} className="ui teal icon right labeled button">
+                    <Icon name="send" />
+                        Send
+                    </button>
+                </div>
+                </FormField>
+            </Form>
+            <Icon name='user' />4 Friends
      </CardContent>
   </Card>
   </Container>
