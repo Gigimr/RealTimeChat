@@ -1,5 +1,6 @@
 import  { useEffect, useState } from "react";
 import { Card, CardContent, Container, Divider, Form, FormField, Icon, Message, MessageHeader } from "semantic-ui-react";
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const Chat = ({ socket, userName, room}) => {
     const [currentMessage, setCurrentMessage] =useState('');
@@ -17,6 +18,7 @@ const Chat = ({ socket, userName, room}) => {
             }
             await socket.emit('send_message', info);
             setMessageList((list) => [...list, info])
+            setCurrentMessage('');
         }
     }
     useEffect(()=>{
@@ -32,8 +34,9 @@ const Chat = ({ socket, userName, room}) => {
   <Container>
     <Card fluid>
      <CardContent header={`Real time chat | Room: ${room}` }/>
-         <CardContent 
-            style={{minHeight:'300px'}}>
+        <ScrollToBottom>
+            <CardContent 
+            style={{height:'400px', padding:'5px'}}>
                 {messageList.map((item,i) => {
                     return (
                         <span key={i}>
@@ -52,12 +55,15 @@ const Chat = ({ socket, userName, room}) => {
                         </span>
                     )
                 })}
-         </CardContent>
+                   </CardContent>
+         </ScrollToBottom>
+      
         <CardContent extra>
             <Form>
                 <FormField>
                 <div className="ui action input">
                     <input
+                        value={currentMessage}
                         type="text"
                         placeholder="Escribe un mensaje"
                         onChange={(e) => setCurrentMessage(e.target.value)} 
